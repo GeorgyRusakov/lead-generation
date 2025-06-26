@@ -4,9 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state, State, StatesGroup
 from aiogram.fsm.storage.redis import RedisStorage, Redis
 from aiogram.types import (
-    CallbackQuery, InlineKeyboardButton,
-    InlineKeyboardMarkup, Message
-)
+    CallbackQuery, Message)
 from redis.asyncio import Redis
 from keyboard_generation import create_inline_kb
 from db import add_user, get_user_by_id
@@ -40,8 +38,8 @@ async def process_start_command(message: Message):
     await message.answer(
         text='Привет! Это бот для сбора заявок. Расскажи немного о себе'
         'и потом с тобой свяжется администратор.'
-             'Отправь команду /fillform и погнали!'
-    )
+             'Отправь команду /fillform и погнали!')
+    print(message.from_user.id)
 
 
 @router.message(Command(commands='cancel'), ~StateFilter(default_state))
