@@ -13,6 +13,7 @@ from handlers import storage
 # Инициализируем логгер
 logger = logging.getLogger(__name__)
 
+# тутуту
 
 # Функция конфигурирования и запуска бота
 async def main():
