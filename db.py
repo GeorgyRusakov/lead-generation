@@ -20,7 +20,7 @@ async def initialize_database():
 async def add_user(telegram_id: int, username: str, phone_number: str, time: str):
     async with aiosqlite.connect("bot.db") as db:
         await db.execute("""
-            INSERT INTO users (telegram_id, username, first_name)
+            INSERT INTO users (telegram_id, username, phone_number, time)
             VALUES (?, ?, ?, ?)
             ON CONFLICT(telegram_id) DO NOTHING
         """, (telegram_id, username, phone_number, time))
@@ -43,3 +43,38 @@ async def get_user_by_id(telegram_id: int):
             "time": (row[3])
         }
         return user
+
+
+async def get_all_users():
+    async with aiosqlite.connect("bot.db") as db:
+        cursor = await db.execute("SELECT * FROM users")
+        rows = await cursor.fetchall()
+
+        # Преобразуем результаты в список словарей
+        users = [
+            {
+                "telegram_id": row[0],
+                "username": row[1],
+                "phone_number": row[2],
+                "time": row[3]
+            }
+            for row in rows
+        ]
+        return users
+
+
+async def get_last10_users():
+    async with aiosqlite.connect('bot.db') as db:
+        cursor = await db.execute('SELECT * FROM users ORDER BY username LIMIT 10')
+        rows = await cursor.fetchall()
+
+        users = [
+            {
+                'telegram_id': row[0],
+                'username': row[1],
+                'phone_number': row[2],
+                'time': row[3]
+            }
+            for row in rows
+        ]
+        return users

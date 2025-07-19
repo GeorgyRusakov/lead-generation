@@ -1,2 +1,4 @@
 # created by virtualenv automatically
 .env
+bot.db
+gs_credentials.json

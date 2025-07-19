@@ -1,4 +1,4 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
@@ -19,3 +19,25 @@ def create_inline_kb(width: int,
 
     # Возвращаем объект инлайн-клавиатуры
     return kb_builder.as_markup()
+
+
+def create_admin_kb():
+    buttons = [
+        [
+            KeyboardButton(
+                text="👥stats"
+                ),
+            KeyboardButton(
+                text="🧑‍🧑‍🧒last10"
+            ),
+            KeyboardButton(
+                text="📁export"
+                )
+        ]
+    ]
+    keyboard = ReplyKeyboardMarkup(
+        keyboard=buttons,
+        resize_keyboard=True,
+        one_time_keyboard=False
+    )
+    return keyboard
